@@ -90,7 +90,7 @@ module.exports = {
        * 大于阈值8192的文件，使用file-loader处理。
        */
       {
-        test: /\.(png|jpg|gif|svg|woff(2)|eot|ttf)$/,
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
             loader: 'url-loader',
@@ -114,9 +114,6 @@ module.exports = {
           { loader: 'css-loader' },
           {
             loader: 'less-loader',
-            options: {
-              strictMath: true,
-            },
           },
         ],
       },
