@@ -32,7 +32,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.tsx', 'ts', '.js', '.json'],
+    extensions: ['.tsx', '.ts', '.js', '.json'],
     /**
      * 配置路径别名。
      */
@@ -90,7 +90,7 @@ module.exports = {
        * 大于阈值8192的文件，使用file-loader处理。
        */
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|jpeg|woff|ttf)$/,
         use: [
           {
             loader: 'url-loader',
