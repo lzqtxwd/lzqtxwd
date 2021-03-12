@@ -1,44 +1,91 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import CoverCanvas from '@components/CoverCanvas'
+import FlipPendant from '@components/FlipPendant'
+import Welcome from '@pages/Home/Welcome'
+import PersonalInfo from '@pages/Home/PersonalInfo'
+import ContactMe from '@pages/Home/ContactMe'
+import TechnologyShow from '@pages/Home/TechnologyShow'
+import WorkExperience from '@pages/Home/WorkExperience'
+import ProjectExperience from '@pages/Home/ProjectExperience'
+import Directory from '@components/Directory'
 // import myFetch from '@utils/myFetch'
 import myWebSocket from '../../utils/myWebSocket/index'
-import selfImg from '@assets/images/self.jpg'
+import meImg from '@assets/images/me.png'
 import './style.less'
 
+// 定义页面锚点，从上至下。
+const Anchor = ['_welcome', '_personalInfo', '_contactMe', '_technologyShow', '_workExperience', '_projectExperience']
+
 const Home = () => {
+  // const contentRef: any = useRef(null)
+  // const coverRef: any = useRef()
+  const [canvasWidth, setCanvasWidth] = useState('100px')
+  const [canvasHeight, setCanvasHeight] = useState('100px')
+  const [showCanvas, setShowCanvas] = useState(true)
+
   useEffect(() => {
-    // console.log(myFetch)
+    // contentRef && setCanvasWidth(contentRef.current.offsetWidth)
+    // contentRef && setCanvasHeight(contentRef.current.offsetHeight)
   })
+
+  // const handleShowCanvas = () => {
+  //   setShowCanvas(!showCanvas)
+  // }
+
+  // const handleClearCanvas = () => {
+  //   coverRef.current.clearCanvas(canvasWidth, canvasHeight)
+  // }
 
   return (
     <div className="home">
-      <div className="welcome">
-
+      <div id={Anchor[0]} className="welcome-box">
+        <Welcome />
       </div>
 
-      <div className="self-introduction">
-        {/* <div className="slip-box">
-          <div className="self-image">
-            <img src={selfImg} width={168} height={168} />
-          </div>
-          <div className="self-image-text">
-            啊啊啊啊
-          </div>
+      <div id={Anchor[1]} className="personal-info-box">
+        <PersonalInfo />
+      </div>
+
+      <div id={Anchor[2]} className="contactme-box">
+        <ContactMe />
+      </div>
+
+      <div id={Anchor[3]} className="technology-show-box">
+        <TechnologyShow />
+      </div>
+
+      <div id={Anchor[4]} className="work-experience-box">
+        <WorkExperience />
+      </div>
+
+      <div id={Anchor[5]} className="project-experience-box">
+        <ProjectExperience />
+      </div>
+
+      {/* 目录-锚点跳转 */}
+      <div className="directory-box">
+        <Directory />
+      </div>
+
+
+
+      {/* <div className="content-box" ref={contentRef}>
+        <div className="annotation" onClick={handleClearCanvas}>
+          <FlipPendant Positive={<div>aasd</div>} Back={<div>asd</div>} />
         </div>
 
-        <div className="self-info">
-          <p>姓名：梁智强</p>
-          <p>性别：男</p>
-          <p>年龄：24周岁</p>
-          <p>籍贯：重庆荣昌</p>
-          <p>职业：前端开发工程师</p>
-          <p>工作经验：2年</p>
-        </div> */}
-      </div>
-      <div className="technology-stack">
+        <div onClick={handleClearCanvas}>
+          清除
+        </div>
+
         <div className="stack-box">
-          
+          <img src={meImg} width={168} />
         </div>
       </div>
+
+      <div className="canvas">
+        {showCanvas && <CoverCanvas coverRef={coverRef} width={canvasWidth} height={canvasHeight} />}
+      </div> */}
     </div>
   )
 }

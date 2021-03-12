@@ -1,75 +1,87 @@
 .home {
-  // height: 100vh;
-  width: 100%;
+  margin: 0 auto;
+  width: 1200px;
 
-  .self-introduction {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-
-    background-image: url('@assets/images/bg1.jpg');
-    background-size: 1920px 1080px;
-
-    .slip-box {
-      position: absolute;
-      top: 200px;
-      left: 200px;
-
-      .self-image {
-        position: absolute;
-        width: 168px;
-        height: 168px;
-        border-radius: 84px;
-        overflow: hidden;
-
-        backface-visibility: hidden;
-        transform: rotateY(0deg);
-        transition: all 1s;
-      }
-
-      .self-image-text {
-        position: absolute;
-        width: 168px;
-        height: 168px;
-        border-radius: 84px;
-        overflow: hidden;
-
-        text-align: center;
-        line-height: 168px;
-
-        backface-visibility: hidden;
-        transform: rotateY(-180deg);
-        transition: all 1s;
-      }
-    }
-
-    .slip-box:hover .self-image {
-      transform: rotateY(180deg);
-    }
-
-    .slip-box:hover .self-image-text {
-      transform: rotateY(0deg);
-    }
-
-    .self-info {
-      position: absolute;
-      top: 200px;
-      left: 400px;
-      padding: 20px;
-
-      p {
-        font-size: 16px;
-        color: #333333;
-        line-height: 24px;
-        font-weight: bold;
-      }
-    }
-  }
-
-  .technology-stack {
-    position: relative;
-    top: 100vh;
+  .welcome-box {
     height: 1000px;
-    background-image: url('@assets/images/paperbg.png');
+    background-color: pink;
   }
+
+  .personal-info-box {
+    height: 1000px;
+    background-color: skyblue;
+  }
+
+  .contactme-box {
+    height: 1000px;
+    background-color: blue;
+  }
+
+  .technology-show-box {
+    height: 1000px;
+    background-color: greenyellow;
+  }
+
+  .work-experience-box {
+    height: 1000px;
+    background-color: rebeccapurple;
+  }
+
+  .project-experience-box {
+    height: 1000px;
+    background-color: sandybrown;
+  }
+
+  .directory-box {
+    position: fixed;
+    right: 0;
+    top: 100px;
+  }
+
+  // .welcome {
+  //   width: 100%;
+  //   height: 100vh;
+  //   position: fixed;
+
+  //   background-image: url('@assets/images/bg1.jpg');
+  //   background-size: 1920px 1080px;
+
+  //   .self-info {
+  //     position: absolute;
+  //     top: 200px;
+  //     left: 400px;
+  //     padding: 20px;
+
+  //     p {
+  //       font-size: 16px;
+  //       color: #333333;
+  //       line-height: 24px;
+  //       font-weight: bold;
+  //     }
+  //   }
+  // }
+
+  // .content-box {
+  //   position: relative;
+  //   top: 100vh;
+  //   height: 1000px;
+  //   background-image: url('@assets/images/paperbg.png');
+
+  //   .annotation {
+  //     position: absolute;
+  //     top: 10px;
+  //     right: 0;
+  //     width: 48px;
+  //     height: 48px;
+  //     border-radius: 4px;
+  //     z-index: 100;
+  //     cursor: pointer;
+  //   }
+  // }
+
+  // .canvas {
+  //   position: absolute;
+  //   top: 100vh;
+  //   height: 1000px;
+  // }
 }
