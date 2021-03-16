@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Button, Anchor } from 'antd'
 import CoverCanvas from '@components/CoverCanvas'
 import FlipPendant from '@components/FlipPendant'
 import Welcome from '@pages/Home/Welcome'
@@ -7,14 +8,15 @@ import ContactMe from '@pages/Home/ContactMe'
 import TechnologyShow from '@pages/Home/TechnologyShow'
 import WorkExperience from '@pages/Home/WorkExperience'
 import ProjectExperience from '@pages/Home/ProjectExperience'
-import Directory from '@components/Directory'
+import Directory from '@/components/AnchorDirectory'
+
 // import myFetch from '@utils/myFetch'
 import myWebSocket from '../../utils/myWebSocket/index'
 import meImg from '@assets/images/me.png'
 import './style.less'
 
 // 定义页面锚点，从上至下。
-const Anchor = ['_welcome', '_personalInfo', '_contactMe', '_technologyShow', '_workExperience', '_projectExperience']
+const anchors = ['_welcome', '_personalInfo', '_contactMe', '_technologyShow', '_workExperience', '_projectExperience']
 
 const Home = () => {
   // const contentRef: any = useRef(null)
@@ -38,33 +40,36 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div id={Anchor[0]} className="welcome-box">
-        <Welcome />
+      <div className="content">
+        <div id={anchors[0]} className="welcome-box">
+          <Welcome />
+        </div>
+
+        <div id={anchors[1]} className="personal-info-box">
+          <PersonalInfo />
+        </div>
+
+        <div id={anchors[2]} className="contactme-box">
+          <ContactMe />
+        </div>
+
+        <div id={anchors[3]} className="technology-show-box">
+          <TechnologyShow />
+        </div>
+
+        <div id={anchors[4]} className="work-experience-box">
+          <WorkExperience />
+        </div>
+
+        <div id={anchors[5]} className="project-experience-box">
+          <ProjectExperience />
+        </div>
       </div>
 
-      <div id={Anchor[1]} className="personal-info-box">
-        <PersonalInfo />
-      </div>
-
-      <div id={Anchor[2]} className="contactme-box">
-        <ContactMe />
-      </div>
-
-      <div id={Anchor[3]} className="technology-show-box">
-        <TechnologyShow />
-      </div>
-
-      <div id={Anchor[4]} className="work-experience-box">
-        <WorkExperience />
-      </div>
-
-      <div id={Anchor[5]} className="project-experience-box">
-        <ProjectExperience />
-      </div>
 
       {/* 目录-锚点跳转 */}
       <div className="directory-box">
-        <Directory />
+        <Directory anchors={anchors} />
       </div>
 
 
