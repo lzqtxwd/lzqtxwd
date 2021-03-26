@@ -14,7 +14,7 @@ const Welcome = () => {
 
 
         <div className="more-button">
-          <FlipPendant Positive={<div>More</div>} Back={<div>更多</div>} />
+          {/* <FlipPendant Positive={<div>More</div>} Back={<div>更多</div>} /> */}
         </div>
       </div>
     </div>

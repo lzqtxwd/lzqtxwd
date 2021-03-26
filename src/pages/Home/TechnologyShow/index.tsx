@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Modal } from 'antd'
+import React, { useState, useRef } from 'react'
+import { Modal, Button } from 'antd'
 import { createFromIconfontCN } from '@ant-design/icons';
 import TechnologyBlock from './TechnologyBlock/index'
 import CategoryLine from '@/components/Echarts/CategoryLine'
@@ -52,6 +52,7 @@ const graphData = {
 };
 
 const TechnologyShow = () => {
+  const graphRef: any = useRef(null)
   const [reactModal, setReactModal] = useState(false)
   const [echartsModal, setEchartsModal] = useState(false)
   const [antvModal, setAntvModal] = useState(false)
@@ -60,6 +61,14 @@ const TechnologyShow = () => {
     setReactModal(false)
     setEchartsModal(false)
     setAntvModal(false)
+  }
+
+  const handleAntvChangeMode = () => {
+    console.log(graphRef, 999)
+
+    graphRef.current.changeModes('add')
+
+    graphRef.current.getData()
   }
 
 
@@ -121,7 +130,8 @@ const TechnologyShow = () => {
 
       <Modal title="AntV" visible={antvModal} width={848} onCancel={closeModal} className="antv-modal">
         <div className="antv-content">
-          <Graph data={graphData} />
+          <Button onClick={handleAntvChangeMode}>切换</Button>
+          <Graph data={graphData} fatherRef={graphRef} />
         </div>
       </Modal>
     </div>

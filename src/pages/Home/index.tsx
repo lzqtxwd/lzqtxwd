@@ -9,25 +9,28 @@ import TechnologyShow from '@pages/Home/TechnologyShow'
 import WorkExperience from '@pages/Home/WorkExperience'
 import ProjectExperience from '@pages/Home/ProjectExperience'
 import Directory from '@/components/AnchorDirectory'
-
-// import myFetch from '@utils/myFetch'
-import myWebSocket from '../../utils/myWebSocket/index'
-import meImg from '@assets/images/me.png'
 import './style.less'
 
 // 定义页面锚点，从上至下。
 const anchors = ['_welcome', '_personalInfo', '_contactMe', '_technologyShow', '_workExperience', '_projectExperience']
 
 const Home = () => {
-  // const contentRef: any = useRef(null)
-  // const coverRef: any = useRef()
+  const contentRef: any = useRef(null)
+  const coverRef: any = useRef()
   const [canvasWidth, setCanvasWidth] = useState('100px')
   const [canvasHeight, setCanvasHeight] = useState('100px')
   const [showCanvas, setShowCanvas] = useState(true)
 
   useEffect(() => {
-    // contentRef && setCanvasWidth(contentRef.current.offsetWidth)
-    // contentRef && setCanvasHeight(contentRef.current.offsetHeight)
+    const updateSize = () => {
+      contentRef && setCanvasWidth(contentRef.current.offsetWidth)
+      contentRef && setCanvasHeight(contentRef.current.offsetHeight)
+    }
+
+    updateSize()
+    window.addEventListener('resize', updateSize)
+
+    return () => window.removeEventListener('resize', updateSize)
   })
 
   // const handleShowCanvas = () => {
@@ -39,7 +42,7 @@ const Home = () => {
   // }
 
   return (
-    <div className="home">
+    <div className="home" ref={contentRef}>
       <div className="content">
         <div id={anchors[0]} className="welcome-box">
           <Welcome />
@@ -66,31 +69,14 @@ const Home = () => {
         </div>
       </div>
 
-
       {/* 目录-锚点跳转 */}
       <div className="directory-box">
         <Directory anchors={anchors} />
       </div>
 
-
-
-      {/* <div className="content-box" ref={contentRef}>
-        <div className="annotation" onClick={handleClearCanvas}>
-          <FlipPendant Positive={<div>aasd</div>} Back={<div>asd</div>} />
-        </div>
-
-        <div onClick={handleClearCanvas}>
-          清除
-        </div>
-
-        <div className="stack-box">
-          <img src={meImg} width={168} />
-        </div>
-      </div>
-
       <div className="canvas">
         {showCanvas && <CoverCanvas coverRef={coverRef} width={canvasWidth} height={canvasHeight} />}
-      </div> */}
+      </div>
     </div>
   )
 }

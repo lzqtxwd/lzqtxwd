@@ -2,7 +2,7 @@
  * 基于antv的关系图实现。
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 import ReactDOM from 'react-dom';
 import G6 from '@antv/g6';
 import './style.less'
@@ -93,13 +93,27 @@ interface PropsType {
   data: {
     nodes: Array<Node>,
     edges: Array<Edge>,
-  }
+  },
+  fatherRef: any
 }
 
 const Graph = (props: PropsType) => {
-  const { data } = props
+  const { data, fatherRef } = props
   const graphNodeRef: any = useRef(null)
   let graph;
+
+  useImperativeHandle(fatherRef, () => {
+    return {
+      changeModes: (mode: string) => {
+        console.log(graph.getZoom(), 999)
+        graph.zoomTo(1)
+        graph.setMode(mode)
+      },
+      getData: () => {
+        console.log(graph.save())
+      }
+    };
+  });
 
   useEffect(() => {
     if (!graph) {
@@ -110,20 +124,46 @@ const Graph = (props: PropsType) => {
         container: ReactDOM.findDOMNode(graphNodeRef.current) as HTMLElement,
         width: graphNodeRef.current.offsetWidth,
         height: graphNodeRef.current.offsetHeight,
+        layout: {
+          type: 'force', // 设置布局算法为 force
+          linkDistance: 100, // 设置边长为 100
+          preventOverlap: true, // 设置防止重叠
+        },
         modes: {
           // 默认交互模式
-          default: ['drag-node', 'click-select', 'click-add-node', 'click-add-edge', 'drag-canvas', 'zoom-canvas'],
-          // 增加节点交互模式
-          addNode: ['click-add-node', 'click-select'],
-          // 增加边交互模式
-          addEdge: ['click-add-edge', 'click-select'],
-        }
+          default: ['drag-node', 'click-select', 'drag-canvas', 'zoom-canvas'],
+          // 增加节点或者边交互模式
+          add: ['click-add-node', 'click-add-edge', 'click-select', 'drag-node', 'drag-canvas', 'zoom-canvas'],
+        },
+        plugins: [menu]
       })
     }
 
     graph.data(data);
     graph.render();
+
+    // 绑定事件。
+    bindEvent();
   }, [data])
+
+  const menu = new G6.Menu({
+    className: 'graph-content-menu',
+    offsetX: 6,
+    offsetY: 10,
+    itemTypes: ['node'],
+    getContent(e, graph) {
+      return `<ul>
+        <li key='delete'>删除</li>
+        <li key='other'>其他</li>
+      </ul>`;
+    },
+    handleMenuClick(target, item, graph) {
+      console.log(target, item, graph)
+      if (target.key = 'delete') {
+        graph.removeItem(item._cfg.id)
+      }
+    },
+  });
 
   /**
    * 自定义图交互
@@ -144,11 +184,13 @@ const Graph = (props: PropsType) => {
       },
       // 点击事件
       onClick(ev) {
+        console.log(ev, 999)
+
         const graph: any = this.graph;
         // 在图上新增一个节点
         graph.addItem('node', {
-          x: ev.canvasX,
-          y: ev.canvasY,
+          x: ev.x,
+          y: ev.y,
           id: `node-${addedNodeCount}`, // 生成唯一的 id
         });
         addedNodeCount++;
@@ -223,7 +265,19 @@ const Graph = (props: PropsType) => {
     });
   }
 
-  return <div ref={graphNodeRef} className="graph-node"></div>
+  /**
+   * 自定义交互事件
+   */
+  const bindEvent = () => {
+    // 监听节点上面右键菜单事件
+    graph.on('node:contextmenu', evt => {
+      console.log(evt, 8989)
+    })
+  }
+
+  return (
+    <div ref={graphNodeRef} className="antv-graph"></div>
+  )
 }
 
 export default Graph;

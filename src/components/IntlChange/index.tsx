@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { changeLangAction } from '../../redux/actions'
 import { Button } from 'antd'
 import './style.less'
 
@@ -7,10 +9,12 @@ const ZH = 'zh-CN';
 const EN = 'en-US';
 
 const IntlChange = () => {
-  const language = localStorage.getItem('lzqLang');
+  const language = useSelector((state: any) => state.changeLang.lang) || localStorage.getItem('lzqLang')
+  const dispatch = useDispatch()
 
   const handleChange = (lang: string) => {
     if (language !== lang) {
+      dispatch(changeLangAction(lang))
       localStorage.setItem('lzqLang', lang)
 
       window.location.reload()
